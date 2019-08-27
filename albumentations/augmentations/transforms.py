@@ -1906,7 +1906,11 @@ class GaussNoise(ImageOnlyTransform):
 
             self.var_limit = (0, var_limit)
 
-        self.mean = mean
+        # Set default behavior of GaussNoise to use mean of 0.
+        if mean is None:
+            self.mean = 0.
+        else:
+            self.mean = mean
 
     def apply(self, img, gauss=None, **params):
         return F.gauss_noise(img, gauss=gauss)
